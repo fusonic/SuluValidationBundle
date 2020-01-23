@@ -32,7 +32,12 @@ class SuluValidationExtension extends Extension
         $container->setParameter('sulu_validation.schemas', $config['schemas']);
         $container->setParameter('sulu_validation.schema_cache', $config['schema_cache']);
 
-        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
+    }
+
+    public function getAlias(): string
+    {
+        return 'sulu_validation';
     }
 }

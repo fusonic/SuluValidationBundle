@@ -10,24 +10,31 @@
             "homepage": "https://github.com/sulu/SuluValidationBundle/graphs/contributors"
         }
     ],
-    "require": {
-        "php": ">=5.4",
-        "symfony/framework-bundle": "~2.8 || ~3.2",
-        "symfony/event-dispatcher": "~2.8 || ~3.2",
-        "justinrainbow/json-schema": "~4.1"
-    },
-    "require-dev": {
-        "symfony/finder": "~2.8 || ~3.2",
-        "symfony/yaml": "~2.8 || ~3.2",
-        "symfony/css-selector": "~2.8 || ~3.2",
-        "phpunit/phpunit": "~4.8 || ~5.7",
-        "symfony/browser-kit": "~2.8 || ~3.2",
-        "symfony/console": "~2.8 || ~3.2"
-    },
     "autoload": {
-        "psr-0": {
-            "Sulu\\Bundle\\ValidationBundle": ""
+        "psr-4": {
+            "Sulu\\Bundle\\ValidationBundle\\": "src"
         }
     },
-    "target-dir": "Sulu/Bundle/ValidationBundle"
+    "autoload-dev": {
+        "psr-4": {
+            "Sulu\\Bundle\\ValidationBundle\\Tests\\": "tests"
+        }
+    },
+    "require": {
+        "php": ">=7.3",
+        "symfony/framework-bundle": "^4.4 || ^5.0",
+        "symfony/event-dispatcher": "^4.4 || ^5.0",
+        "justinrainbow/json-schema": "^5.2"
+    },
+    "require-dev": {
+        "symfony/finder": "^4.4 || ^5.0",
+        "symfony/yaml": "^4.4 || ^5.0",
+        "phpunit/phpunit": "^8.5",
+        "symfony/browser-kit": "^4.4 || ^5.0",
+        "symfony/console": "^4.4 || ^5.0",
+        "phpstan/phpstan": "^0.12"
+    },
+    "scripts": {
+        "phpstan": "php vendor/bin/phpstan analyse src --level=5"
+    }
 }

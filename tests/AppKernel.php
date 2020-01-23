@@ -1,5 +1,7 @@
 <?php
 
+namespace Sulu\Bundle\ValidationBundle\Tests;
+
 /*
  * This file is part of Sulu.
  *

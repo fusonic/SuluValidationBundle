@@ -1,0 +1,4 @@
+parameters:
+    ignoreErrors:
+        # Remove when autowiring is integrated
+        - '#.+Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface::end.+#'

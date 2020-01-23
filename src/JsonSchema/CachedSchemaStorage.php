@@ -15,7 +15,7 @@ use InvalidArgumentException;
 use JsonSchema\Entity\JsonPointer;
 use JsonSchema\Iterator\ObjectIterator;
 use JsonSchema\SchemaStorage;
-use Sulu\Bundle\ValidationBundle\Exceptions\MalFormedJsonException;
+use Sulu\Bundle\ValidationBundle\Exceptions\MalformedJsonException;
 use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
 use Symfony\Component\Config\FileLocatorInterface;
@@ -133,7 +133,7 @@ class CachedSchemaStorage extends SchemaStorage implements CachedSchemaStorageIn
      * @param array  $serializedSchemas
      * @param array  $resources
      *
-     * @throws MalFormedJsonException
+     * @throws MalformedJsonException
      * @throws InvalidArgumentException
      * @throws FileLocatorFileNotFoundException
      */
@@ -147,7 +147,7 @@ class CachedSchemaStorage extends SchemaStorage implements CachedSchemaStorageIn
         $schema = json_decode(file_get_contents($absoluteSchemaPath));
 
         if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new MalFormedJsonException('Malformed json encountered in ' . $schemaPath);
+            throw new MalformedJsonException('Malformed json encountered in ' . $schemaPath);
         }
 
         if (strpos($absoluteSchemaPath, self::FILE_PREFIX) !== 0) {
@@ -167,7 +167,7 @@ class CachedSchemaStorage extends SchemaStorage implements CachedSchemaStorageIn
      * @param array     $serializedSchemas
      * @param array     $resources
      *
-     * @throws MalFormedJsonException
+     * @throws MalformedJsonException
      * @throws InvalidArgumentException
      * @throws FileLocatorFileNotFoundException
      */

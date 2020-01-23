@@ -1,12 +1,10 @@
-# composer
+/vendor/
+/var/log
+/var/cache
+
 composer.lock
-vendor
-
-# phpunit
-Tests/app/cache
-Tests/app/logs
 phpunit.xml
+.phpunit.result.cache
 
-# intellij
-*.iml
-/.idea
+.idea/*
+.php_cs.cache

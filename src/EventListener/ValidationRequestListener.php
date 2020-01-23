@@ -12,10 +12,11 @@
 namespace Sulu\Bundle\ValidationBundle\EventListener;
 
 use JsonSchema\Constraints\Factory;
+use JsonSchema\SchemaStorage;
 use JsonSchema\Validator;
 use Sulu\Bundle\ValidationBundle\JsonSchema\CachedSchemaStorageInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 /**
  * This listener checks for every request if a schema was defined for the current route.
@@ -34,7 +35,7 @@ class ValidationRequestListener
     private $schemaStorage;
 
     /**
-     * @param array $schemas
+     * @param array                        $schemas
      * @param CachedSchemaStorageInterface $schemaStorage
      */
     public function __construct(array $schemas, CachedSchemaStorageInterface $schemaStorage)
@@ -44,9 +45,9 @@ class ValidationRequestListener
     }
 
     /**
-     * @param GetResponseEvent $event
+     * @param RequestEvent $event
      */
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(RequestEvent $event)
     {
         $request = $event->getRequest();
         $routeId = $request->get('_route');
@@ -62,6 +63,10 @@ class ValidationRequestListener
 
         if (!$dataObject) {
             $dataObject = new \stdClass();
+        }
+
+        if (!($this->schemaStorage instanceof SchemaStorage)) {
+            throw new \LogicException('Schema storage is not of type SchemaStorage!');
         }
 
         $validator = new Validator(new Factory($this->schemaStorage));

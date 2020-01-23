@@ -11,33 +11,33 @@
 
 namespace Sulu\Bundle\ValidationBundle\Tests\Functional\JsonSchema;
 
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class CachedSchemaStorageTest extends WebTestCase
 {
     /**
-     * @var Client
+     * @var KernelBrowser
      */
     protected $client;
 
     /**
      * {@inheritdoc}
      */
-    public function setUp()
+    public function setUp():void
     {
         $this->client = static::createClient();
     }
 
-    public function testJsonSchemaCacheGeneration()
+    public function testJsonSchemaCacheGeneration(): void
     {
-        $container = $this->client->getContainer();
+        $container = $this->client->getKernel()->getContainer()->get('test.service_container');
         $cachedSchemaStorage = $container->get('sulu_validation.cached_schema_storage');
         $cachedSchemaStorage->initializeCache();
         $cacheFilePath = $container->getParameter('sulu_validation.schema_cache');
-        $baseDir = 'file://' . substr($container->getParameter('kernel.root_dir'), 0, -3) . 'Resources/Schemas/';
+        $baseDir = 'file://' . $container->getParameter('kernel.project_dir') . '/tests/Resources/Schemas/';
 
-        $this->assertTrue(file_exists($cacheFilePath));
+        $this->assertFileExists($cacheFilePath);
         $cachedData = unserialize(file_get_contents($cacheFilePath));
 
         $this->assertArrayHasKey($baseDir . 'getActionSchema.json', $cachedData);

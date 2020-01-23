@@ -11,7 +11,7 @@
 
 namespace Sulu\Bundle\ValidationBundle\Tests\Functional\Validation;
 
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
@@ -20,14 +20,14 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class ValidationTest extends WebTestCase
 {
     /**
-     * @var Client
+     * @var KernelBrowser
      */
     protected $client;
 
     /**
      * {@inheritdoc}
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->client = static::createClient();
     }
@@ -35,7 +35,7 @@ class ValidationTest extends WebTestCase
     /**
      * Test calling a route without validation.
      */
-    public function testNoValidation()
+    public function testNoValidation(): void
     {
         $this->client->request('GET', '/no-validation');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
@@ -44,16 +44,16 @@ class ValidationTest extends WebTestCase
     /**
      * Test validation success on GET request.
      */
-    public function testGetValidationSuccess()
+    public function testGetValidationSuccess(): void
     {
         $this->client->request('GET', '/get-validation', ['locale' => 'en']);
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }
 
     /**
-     * Tests validation error on GET request.
+     * tests validation error on GET request.
      */
-    public function testGetValidationError()
+    public function testGetValidationError(): void
     {
         $this->client->request('GET', '/get-validation');
         $this->assertEquals(400, $this->client->getResponse()->getStatusCode());
@@ -65,7 +65,7 @@ class ValidationTest extends WebTestCase
     /**
      * Test validation success on POST request.
      */
-    public function testPostValidationSuccess()
+    public function testPostValidationSuccess(): void
     {
         $this->client->request(
             'POST',
@@ -82,9 +82,9 @@ class ValidationTest extends WebTestCase
     }
 
     /**
-     * Tests validation error on POST request.
+     * tests validation error on POST request.
      */
-    public function testPostValidationError()
+    public function testPostValidationError(): void
     {
         $this->client->request('POST', '/post-validation');
         $this->assertEquals(400, $this->client->getResponse()->getStatusCode());
@@ -93,7 +93,7 @@ class ValidationTest extends WebTestCase
         $this->assertResponseContainsProperties($responseContent, ['name', 'attributes']);
     }
 
-    public function testValidationOfSchemaWithInlineRefs()
+    public function testValidationOfSchemaWithInlineRefs(): void
     {
         $data = [
             'billingAddress' => [
@@ -114,7 +114,7 @@ class ValidationTest extends WebTestCase
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }
 
-    public function testValidationOfSchemaWithRefs()
+    public function testValidationOfSchemaWithRefs(): void
     {
         $data = [
             'billingAddress' => [
@@ -136,9 +136,9 @@ class ValidationTest extends WebTestCase
     }
 
     /**
-     *  Tests if missing shipping address and missing zip of billing address are detected when using inline refs.
+     *  tests if missing shipping address and missing zip of billing address are detected when using inline refs.
      */
-    public function testValidationOfSchemaWithInlineRefsAndErrors()
+    public function testValidationOfSchemaWithInlineRefsAndErrors(): void
     {
         $data = [
             'billingAddress' => [
@@ -155,9 +155,9 @@ class ValidationTest extends WebTestCase
     }
 
     /**
-     *  Tests if missing shipping address and missing zip of billing address are detected when using refs.
+     *  tests if missing shipping address and missing zip of billing address are detected when using refs.
      */
-    public function testValidationOfSchemaWithRefsAndErrors()
+    public function testValidationOfSchemaWithRefsAndErrors(): void
     {
         $data = [
             'billingAddress' => [
@@ -174,12 +174,12 @@ class ValidationTest extends WebTestCase
     }
 
     /**
-     * Tests if response contains expected properties.
+     * tests if response contains expected properties.
      *
      * @param array $responseContent
      * @param array $properties
      */
-    public function assertResponseContainsProperties(array $responseContent, array $properties)
+    public function assertResponseContainsProperties(array $responseContent, array $properties): void
     {
         foreach ($responseContent as $index => $content) {
             $this->assertContains($content['property'], $properties);

@@ -1,0 +1,18 @@
+parameters:
+    kernel.secret: ThisIsVerySecret!
+
+services:
+    app.tests.controller:
+        public: true
+        class: Sulu\Bundle\ValidationBundle\Tests\Resources\Controller\DummyController
+
+framework:
+  test: ~
+  router: { resource: "%kernel.project_dir%/tests/config/routing.yml" }
+
+sulu_validation:
+    schemas:
+        test_get_validation: '%kernel.project_dir%/tests/Resources/Schemas/getActionSchema.json'
+        test_post_validation: '%kernel.project_dir%/tests/Resources/Schemas/postActionSchema.json'
+        test_schema_with_inline_refs: '%kernel.project_dir%/tests/Resources/Schemas/schemaWithInlineRefs.json'
+        test_schema_with_refs: '%kernel.project_dir%/tests/Resources/Schemas/schemaWithRefs.json'
